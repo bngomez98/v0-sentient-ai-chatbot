@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     }
 
     // Process the last user message with advanced NLP
-    const lastUserMessage = messages.filter((m) => m.role === "user").pop()
+    const lastUserMessage = messages.filter((m: { role: string }) => m.role === "user").pop()
     if (lastUserMessage) {
       lastUserMessage.content = await preprocessUserMessage(lastUserMessage.content)
     }
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
         }))
 
         // Find the last system message index or insert at beginning
-        const lastSystemIndex = messages.findIndex((m) => m.role === "system")
+        const lastSystemIndex = messages.findIndex((m: { role: string }) => m.role === "system")
         if (lastSystemIndex >= 0) {
           messages.splice(lastSystemIndex + 1, 0, ...memoryContext)
         } else {
