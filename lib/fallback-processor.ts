@@ -114,7 +114,7 @@ function generateLocalResponse(
   const relevantKnowledge = entities
     .map((entity) => {
       const key = Object.keys(knowledgeBase).find((k) => entity.toLowerCase().includes(k))
-      return key ? knowledgeBase[key] : null
+      return key ? knowledgeBase[key as keyof typeof knowledgeBase] : null
     })
     .filter(Boolean)
 

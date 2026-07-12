@@ -105,7 +105,6 @@ export default function DatasetBrowser() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="border-primary/20"
-            prefix={<Search className="h-4 w-4 text-muted-foreground" />}
           />
         </div>
 

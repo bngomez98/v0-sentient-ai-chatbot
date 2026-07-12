@@ -62,7 +62,7 @@ export default function ApiKeySetup({ onSetupComplete }: ApiKeySetupProps) {
       }
     } catch (err) {
       console.error("Error setting up API key:", err)
-      setError(err.message || "Failed to set up API key")
+      setError(err instanceof Error ? err.message : "Failed to set up API key")
     } finally {
       setIsSubmitting(false)
     }
