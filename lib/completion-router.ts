@@ -20,13 +20,13 @@ export async function fetchAvailableModels(): Promise<string[]> {
     }
 
     const data = await response.json()
-    return data.models.map((model: { id: string }) => model.id)
+    return data.models.map((model: { id: string; name: string }) => model.id)
   } catch (error) {
     console.error("Error fetching models:", error)
     // Return default models if API call fails
     return [
       "mistralai/Mixtral-8x7B-Instruct-v0.1",
-      "meta-llama/Llama-2-70b-chat-hf",
+      "togethercomputer/llama-2-7b-chat",
       "mistralai/Mistral-7B-Instruct-v0.2",
     ]
   }

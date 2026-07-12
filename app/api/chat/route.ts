@@ -174,7 +174,7 @@ export async function POST(req: Request) {
       console.error("API error:", error)
 
       // Check if it's an authentication error
-      if (error.message && error.message.includes("Authentication failed")) {
+      if (error instanceof Error && error.message.includes("Authentication failed")) {
         return NextResponse.json(
           {
             error: "Authentication failed: Invalid API key",
@@ -190,7 +190,7 @@ export async function POST(req: Request) {
     console.error("Chat API error:", error)
     return NextResponse.json(
       {
-        error: `Failed to process your request: ${error.message}`,
+        error: `Failed to process your request: ${error instanceof Error ? error.message : "Unknown error"}`,
         response: "I apologize, but I'm currently experiencing technical difficulties. Please try again later.",
       },
       { status: 500 },

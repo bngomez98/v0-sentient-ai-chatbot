@@ -21,7 +21,7 @@ export async function GET(req: Request) {
     if (!TOGETHER_API_KEY) {
       console.log("No API key available in environment variables or request, returning default models")
       return NextResponse.json({
-        data: AVAILABLE_MODELS,
+        models: AVAILABLE_MODELS,
         message: "Using default models (no API key found)",
         needsApiKey: true,
       })
@@ -48,7 +48,7 @@ export async function GET(req: Request) {
       if (response.status === 401) {
         console.error("Authentication failed: Invalid API key (401 Unauthorized)")
         return NextResponse.json({
-          data: AVAILABLE_MODELS,
+          models: AVAILABLE_MODELS,
           error: "Authentication failed: Invalid API key",
           status: 401,
           needsApiKey: true,
@@ -65,7 +65,7 @@ export async function GET(req: Request) {
       if (!data || !Array.isArray(data.data)) {
         console.warn("Unexpected API response format:", data)
         return NextResponse.json({
-          data: AVAILABLE_MODELS,
+          models: AVAILABLE_MODELS,
           message: "Using default models (unexpected API response format)",
         })
       }
@@ -103,17 +103,17 @@ export async function GET(req: Request) {
       // If no models were found, return the default list
       if (chatModels.length === 0) {
         return NextResponse.json({
-          data: AVAILABLE_MODELS,
+          models: AVAILABLE_MODELS,
           message: "No serverless models found, using default models",
         })
       }
 
-      return NextResponse.json({ data: chatModels })
+      return NextResponse.json({ models: chatModels })
     } catch (error) {
       console.error("Error fetching models from API:", error)
       // Return predefined models as fallback
       return NextResponse.json({
-        data: AVAILABLE_MODELS,
+        models: AVAILABLE_MODELS,
         error: error instanceof Error ? error.message : "Unknown error",
         message: "Using default models due to API error",
       })
@@ -123,7 +123,7 @@ export async function GET(req: Request) {
     return NextResponse.json(
       {
         error: "Failed to fetch available models",
-        data: AVAILABLE_MODELS,
+        models: AVAILABLE_MODELS,
         message: "Using default models due to server error",
       },
       { status: 500 },
