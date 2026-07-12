@@ -91,7 +91,7 @@ class ApiClient {
         }
 
         if (data && Array.isArray(data.models) && data.models.length > 0) {
-          return data.models
+          return data.models as { id: string; name: string }[]
         }
 
         // If local endpoint returns empty data, throw error to try direct API

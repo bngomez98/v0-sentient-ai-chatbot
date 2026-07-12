@@ -111,6 +111,6 @@ export async function POST(req: Request) {
     }
   } catch (error) {
     console.error("Completion API error:", error)
-    return NextResponse.json({ error: `Failed to process your request: ${error.message}` }, { status: 500 })
+    return NextResponse.json({ error: `Failed to process your request: ${error instanceof Error ? error.message : "Unknown error"}` }, { status: 500 })
   }
 }
